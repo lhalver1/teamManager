@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Roster
+    </ion-title>
+    <!--<ion-buttons end>
+      <button ion-button icon-only (click)="addPlayer()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>-->
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let player of players" (click)="goToDetails(player)">
+      <ion-avatar item-left>
+        <img src="assets/img/default.png">
+      </ion-avatar>
+      <h2>#{{player?.number}} {{player.firstName}} {{player.lastName}}</h2>
+      <p>{{ player.phone }}</p>
+      <p>{{ player.getPositionString() }}</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="addPlayer()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

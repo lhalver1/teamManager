@@ -11,12 +11,15 @@ export class PlayerProvider {
 
   constructor(public http: Http) { 
       this.players = [
-          new Player(1, 'Larry', 'Hatteburg', '123-456-7890', 'lhatteburg@gmail.com', 6, ['LF', 'CF'], 'Right', 'Right'),
-          new Player(2, 'Joe', 'Hatteburg', '987-654-3210', 'jhatteburg@gmail.com', 52, ['SS', '3B'], 'Right', 'Right'),
-          new Player(3, 'Marcus', 'King', '101-202-3030', 'mking@gmail.com', 8, ['LF', 'CF'], 'Right', 'Right'),
-          new Player(4, 'Cody', 'Kessel', '222-567-5309', 'ckessel@gmail.com', 4, ['RF', '1B'], 'Left', 'Right'),
-          new Player(5, 'Duke', 'Gregory', '987-765-1223', 'dgregory@gmail.com', 24, ['LF', 'CF'], 'Right', 'Right'),
-          new Player(5, 'Jack', 'Bauer', '101-546-4089', 'jbauer@gmail.com', 12, ['P', '2B'], 'Right', 'Right')
+          new Player(1, 'Troy', 'Tulowitzki', '123-456-7890', 'tulo@gmail.com', 2, ['SS'], 'Right', 'Right'),
+          new Player(2, 'Jake', 'Lamb', '987-654-3210', 'lambbomb@gmail.com', 22, ['3B'], 'Right', 'Right'),
+          new Player(3, 'DJ', 'LeMahieu', '101-202-3030', 'thedj@gmail.com', 9, ['2B'], 'Right', 'Right'),
+          new Player(4, 'Paul', 'Goldschmidt', '222-567-5309', 'goldy@gmail.com', 44, ['1B'], 'Right', 'Right'),
+          new Player(5, 'Zach', 'Greinke', '987-765-1223', 'zackgreinke@gmail.com', 21, ['P'], 'Right', 'Right'),
+          new Player(6, 'Chris', 'Iannetta', '101-546-4089', 'iannetta@gmail.com', 8, ['C'], 'Right', 'Right'),
+          new Player(7, 'Yoenis', 'Cespedes', '101-546-4089', 'ycespedes@gmail.com', 12, ['LF'], 'Right', 'Right'),
+          new Player(8, 'Charlie', 'Blackmon', '101-546-4089', 'chucknazty@gmail.com', 19, ['CF'], 'Left', 'Left'),
+          new Player(9, 'Bryce', 'Harper', '101-546-4089', 'harper@gmail.com', 34, ['RF'], 'Left', 'Left'),
       ];
   }
 

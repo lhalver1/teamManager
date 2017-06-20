@@ -8,6 +8,7 @@ export class Player {
     positions: string[];
     bats: string;
     throws: string;
+    picture: string;
 
     constructor(id, firstName, lastName, phone, email, number, positions, bats, throws) {
         this.id = id;

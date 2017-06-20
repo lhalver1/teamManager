@@ -11,9 +11,11 @@ import { PlayerInfoPage } from '../player-info-page/player-info-page';
 })
 export class RosterPage {
   players: Player[];
+  reordering: boolean;
 
   constructor(public navCtrl: NavController, private playerProvider: PlayerProvider) {
       this.players = [];
+      this.reordering = false;
       this.getPlayers();
   }
 
@@ -25,14 +27,28 @@ export class RosterPage {
   getPlayers() {
     this.playerProvider.getPlayers().then((players) => {
       this.players = players;
+      this.players.sort(function(a:Player, b:Player) {
+        if (a.lastName < b.lastName)
+          return -1;
+        if (a.lastName > b.lastName)
+          return 1;
+        return 0;
+      });
     });
   }
 
   goToDetails(player: Player) {
-    this.navCtrl.push(PlayerInfoPage, {player: player});
+    this.navCtrl.push(PlayerInfoPage, {player: player, newPlayer: false});
   }
 
-  removePlayer(playerId: string) {
+  removePlayer(player: Player) {
+    for (let i = 0; i < this.players.length; i++) {
+      let currPlayer = this.players[i];
+      if (currPlayer.id === player.id) {
+        this.players.splice(i, 1);
+        break;
+      }
+    }
   }
 
 }

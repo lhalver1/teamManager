@@ -25,7 +25,18 @@ export class PlayerInfoPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PlayerInfoPagePage');
+    console.log('ionViewDidLoad PlayerInfoPage');
+  }
+
+  /**
+   * @param  {Player} player - The player to be edited
+   */
+  edit(player: Player) {
+    this.editing = true;
+  }
+
+  editPicture() {
+    alert("Editing Picture is currently under construction");
   }
 
   showNewPlayerAlert() {
@@ -76,6 +87,13 @@ export class PlayerInfoPage {
     alert.present();
   }
 
+  /**
+   * @param  {string} type - The Type of the property being edited
+   * @param  {any} min - If number, the smallest number available
+   * @param  {any} max - If number, the largest number available
+   * @param  {string} propertyTitle - The title of the prompt
+   * @param  {string} property - The property on the player object to be edited
+   */
   showPrompt(type: string, min: any, max: any, propertyTitle: string, property: string) {
     let prompt = this.alertCtrl.create({
       title: propertyTitle,

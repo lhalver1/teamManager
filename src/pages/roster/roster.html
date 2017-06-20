@@ -3,27 +3,36 @@
     <ion-title>
       Roster
     </ion-title>
-    <!--<ion-buttons end>
-      <button ion-button icon-only (click)="addPlayer()">
-        <ion-icon name="add"></ion-icon>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="reordering = !reordering">
+        <ion-icon *ngIf="!reordering" name="sync"></ion-icon>
+        <ion-icon *ngIf="reordering" name="checkmark"></ion-icon>
       </button>
-    </ion-buttons>-->
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let player of players" (click)="goToDetails(player)">
-      <ion-avatar item-left>
-        <img src="assets/img/default.png">
-      </ion-avatar>
-      <h2>#{{player?.number}} {{player.firstName}} {{player.lastName}}</h2>
-      <p>{{ player.phone }}</p>
-      <p>{{ player.getPositionString() }}</p>
-    </ion-item>
+  <ion-list [reorder]="reordering ? 'true':'false'" (ionItemReorder)="$event.applyTo(players)">
+
+    <ion-item-sliding *ngFor="let player of players" (click)="goToDetails(player)">
+      <ion-item>
+        <ion-avatar item-left>
+          <img [src]="'assets/img/players/' + player.lastName + '.png'">
+        </ion-avatar>
+        <h2>#{{player?.number}} {{player.firstName}} {{player.lastName}}</h2>
+        <p>{{ player.phone }}</p>
+        <p>{{ player.getPositionString() }}</p>
+      </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button color="bs-danger" (click)="removePlayer(player)"><ion-icon name="trash"></ion-icon> Delete</button>
+      </ion-item-options>
+    </ion-item-sliding>
+    
   </ion-list>
 
-  <ion-fab right bottom>
+  <ion-fab right bottom *ngIf="!reordering">
     <button ion-fab color="primary" (click)="addPlayer()">
       <ion-icon name="add"></ion-icon>
     </button>

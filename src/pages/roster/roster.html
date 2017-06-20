@@ -15,7 +15,7 @@
 <ion-content padding>
   <ion-list [reorder]="reordering ? 'true':'false'" (ionItemReorder)="$event.applyTo(players)">
 
-    <ion-item-sliding *ngFor="let player of players" (click)="goToDetails(player)">
+    <ion-item-sliding *ngFor="let player of players; let i = index;" (click)="goToDetails(player)">
       <ion-item>
         <ion-avatar item-left>
           <img [src]="'assets/img/players/' + player.lastName + '.png'">

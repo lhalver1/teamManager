@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 import { PlayerProvider } from '../providers/player-provider';
 import { RosterPage } from '../pages/roster/roster';
 import { PlayerInfoPage } from '../pages/player-info-page/player-info-page';
+import { AnimateItemSliding } from '../components/animate-item-sliding/animate-item-sliding';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -13,7 +14,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   declarations: [
     MyApp,
     RosterPage,
-    PlayerInfoPage
+    PlayerInfoPage,
+    AnimateItemSliding
   ],
   imports: [
     IonicModule.forRoot(MyApp)

@@ -1,5 +1,9 @@
 page-player-info-page {
 
+    .changed {
+        border: 1px solid $bs-danger;
+    }
+
     .playerPicture {
         margin: 0px auto;
     }

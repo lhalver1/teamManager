@@ -1,5 +1,8 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
       Roster
     </ion-title>
@@ -13,7 +16,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list [reorder]="reordering ? 'true':'false'" (ionItemReorder)="$event.applyTo(players)">
+  <ion-list id="rosterList" [reorder]="reordering ? 'true':'false'" (ionItemReorder)="$event.applyTo(players)">
 
     <ion-item-sliding *ngFor="let player of players; let i = index;" (click)="goToDetails(player)">
       <ion-item>
@@ -26,7 +29,7 @@
       </ion-item>
 
       <ion-item-options side="right">
-        <button ion-button color="bs-danger" (click)="removePlayer(player)"><ion-icon name="trash"></ion-icon> Delete</button>
+        <button ion-button color="bs-danger" (click)="confirmPrompt(player)"><ion-icon name="trash"></ion-icon> Delete</button>
       </ion-item-options>
     </ion-item-sliding>
     

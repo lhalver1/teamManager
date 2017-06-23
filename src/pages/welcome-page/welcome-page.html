@@ -1,0 +1,37 @@
+
+<ion-content id="welcomepageContent" padding>
+  <ion-slides pager (ionSlideDidChange)="slideChanged()">
+
+    <ion-slide>
+      <div class="diag" style="background: url('assets/img/whitebg.svg') no-repeat">
+        <ion-icon name="people" color="primary"></ion-icon>
+      </div>
+      <div>
+        <h2>Roster</h2>
+        <p>Add a player to your teams roster so you can access all their information at the blink of an eye.</p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="diag" style="background: url('assets/img/whitebg.svg') no-repeat">
+        <ion-icon name="analytics" color="primary"></ion-icon>
+      </div>
+      <div>
+        <h2>Statistics</h2>
+        <p>Keep track of a players stats and view the chages over time.</p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="diag" style="background: url('assets/img/whitebg.svg') no-repeat">
+        <ion-icon name="notifications" color="primary"></ion-icon>
+      </div>
+      <div>
+        <h2>Notifications</h2>
+        <p>Send a reminder or custom message to all the players on your team.</p>
+      </div>
+    </ion-slide>
+
+  </ion-slides>
+  <button id="skip" (click)="skip()">{{ skipMessage }}</button>
+</ion-content>

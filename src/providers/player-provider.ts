@@ -23,40 +23,24 @@ export class PlayerProvider {
       ];
   }
 
-    getPlayers(): Promise<Player[]> {
-        return new Promise((resolve, reject) => {
-            resolve(this.players);
-        });
+  addPlayer(player: Player) {
+    this.players.push(player);
+  }
+
+  getPlayers(): Promise<Player[]> {
+    return new Promise((resolve, reject) => {
+      resolve(this.players);
+    });
+  }
+
+  updatePlayer(player: Player) {
+    for (var i = 0; i < this.players.length; i++) {
+        var currPlayer = this.players[i];
+        if (currPlayer.id === player.id) {
+            currPlayer = player;
+            break;
+        }
     }
-    
-    // // Load all github users
-    // load(): Observable<User[]> {
-    //   return this.http.get(`${this.githubApiUrl}/users`)
-    //     .map(res => <User[]>res.json());
-    // }
-
-    // // Get github user by providing login(username)
-    // loadDetails(login: string): Observable<User> {
-    //   return this.http.get(`${this.githubApiUrl}/users/${login}`)
-    //     .map(res => <User>(res.json()))
-    // }
-
-    // // Search for github users  
-    // searchUsers(searchParam: string): Observable<User[]> {
-    //   return this.http.get(`${this.githubApiUrl}/search/users?q=${searchParam}`) 
-    //     .map(res => <User[]>(res.json().items))
-    // }
-
-    // // Get github user by providing login(username)
-    // loadRepos(login: string): Observable<UserRepo[]> {
-    //   return this.http.get(`${this.githubApiUrl}/users/${login}/repos`)
-    //     .map(res => <UserRepo[]>(res.json()))
-    // }
-
-    // // Search Repositories
-    // searchRepos(searchParam: string): Observable<Repo[]> {
-    //   return this.http.get(`${this.githubApiUrl}/search/repositories?q=${searchParam}`) 
-    //     .map(res => <Repo[]>(res.json().items))
-    // }
+  }
 
 }

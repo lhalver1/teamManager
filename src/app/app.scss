@@ -15,6 +15,12 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,700');
+
+ion-content {
+    background-color: #EFEFEF !important;
+}
+
 @-webkit-keyframes slidingAnimation {
   0% {
     transform: translate3d(0,0,0);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController} from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 import { Player } from '../../models/player';
 import { PlayerProvider } from '../../providers/player-provider';
@@ -13,7 +13,7 @@ export class RosterPage {
   players: Player[];
   reordering: boolean;
 
-  constructor(public navCtrl: NavController, private playerProvider: PlayerProvider) {
+  constructor(public navCtrl: NavController, private playerProvider: PlayerProvider, public alertCtrl: AlertController) {
       this.players = [];
       this.reordering = false;
       this.getPlayers();
@@ -22,6 +22,28 @@ export class RosterPage {
   addPlayer() {
     let newPlayer = new Player(-1, 'first name', 'last name', '111-222-3333', 'default@gmail.com', 99, ["P", "C"], 'Right', 'Right');
     this.navCtrl.push(PlayerInfoPage, {player: newPlayer, newPlayer: true})
+  }
+
+  confirmPrompt(player: Player) {
+    let prompt = this.alertCtrl.create({
+      title: 'Confirm',
+      message: "Are you sure you want to delete " + player.getFullName(),
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+            this.removePlayer(player);
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
   getPlayers() {

@@ -1,20 +1,27 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { StatusBar, Splashscreen } from 'ionic-native';
+import { Camera } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { TourNgBootstrapModule } from 'ng2-tour';
 
 import { MyApp } from './app.component';
-import { PlayerProvider } from '../providers/player-provider';
 import { RosterPage } from '../pages/roster/roster';
+import { WelcomePage } from '../pages/welcome-page/welcome-page';
 import { PlayerInfoPage } from '../pages/player-info-page/player-info-page';
+import { StatsHomePage } from '../pages/stats-home-page/stats-home-page';
 import { AnimateItemSliding } from '../components/animate-item-sliding/animate-item-sliding';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { PlayerProvider } from '../providers/player-provider';
+import { GlobalService } from '../services/global.service';
 
 @NgModule({
   declarations: [
     MyApp,
     RosterPage,
     PlayerInfoPage,
+    WelcomePage,
+    StatsHomePage,
     AnimateItemSliding
   ],
   imports: [
@@ -24,12 +31,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     RosterPage,
-    PlayerInfoPage
+    PlayerInfoPage,
+    WelcomePage,
+    StatsHomePage
   ],
   providers: [
     StatusBar,
-    SplashScreen,
+    Splashscreen,
     PlayerProvider,
+    GlobalService,
+    Camera,
+    ImagePicker,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

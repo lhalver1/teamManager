@@ -9,44 +9,44 @@
 
 <ion-content padding>
   <ion-avatar>
-    <img class="playerPicture" *ngIf="!editing" [src]="newPlayer ? 'assets/img/default.png':'assets/img/players/' + player.lastName + '.png'">
-    <img class="playerPicture" *ngIf="editing" [src]="newPlayer ? 'assets/img/default.png':'assets/img/players/' + player.lastName + '.png'" (click)="editPicture()">
+    <img class="playerPicture" *ngIf="!editing && !updating" [src]="newPlayer ? 'assets/img/default.png':'assets/img/players/' + player.lastName + '.png'">
+    <img class="playerPicture" *ngIf="editing || updating" [src]="newPlayer ? 'assets/img/default.png':'assets/img/players/' + player.lastName + '.png'" (click)="editPicture()">
   </ion-avatar>
-  <ion-list *ngIf="editing">
-    <ion-item (click)="showPrompt('text', null, null, 'First Name', 'firstName')">
+  <ion-list *ngIf="editing || updating">
+    <ion-item [ngClass]="{'changed': player.firstName != originalPlayer.firstName}" (click)="showPrompt('text', null, null, 'First Name', 'firstName')">
       <ion-label>Frist Name</ion-label>
       <p item-right>{{player?.firstName}}</p>
     </ion-item>
-    <ion-item (click)="showPrompt('text', null, null, 'Last Name', 'lastName')">
+    <ion-item [ngClass]="{'changed': player.lastName != originalPlayer.lastName}" (click)="showPrompt('text', null, null, 'Last Name', 'lastName')">
       <ion-label>Last Name</ion-label>
       <p item-right>{{player?.lastName}}</p>
     </ion-item>
-    <ion-item (click)="showPrompt('tel', 0, 10, 'Phone', 'phone')">
+    <ion-item [ngClass]="{'changed': player.phone != originalPlayer.phone}" (click)="showPrompt('tel', 0, 10, 'Phone', 'phone')">
       <ion-label>Phone</ion-label>
       <p item-right>{{player?.phone}}</p>
     </ion-item>
-    <ion-item (click)="showPrompt('email', null, null, 'Email', 'email')">
+    <ion-item [ngClass]="{'changed': player.email != originalPlayer.email}" (click)="showPrompt('email', null, null, 'Email', 'email')">
       <ion-label>Email</ion-label>
       <p item-right>{{player?.email}}</p>
     </ion-item>
-    <ion-item (click)="showPrompt('number', 0, 99, 'Number', 'number')">
+    <ion-item [ngClass]="{'changed': player.number != originalPlayer.number}" (click)="showPrompt('number', 0, 99, 'Number', 'number')">
       <ion-label>Number</ion-label>
       <p item-right>{{player?.number}}</p>
     </ion-item>
-    <ion-item (click)="showCheckbox('positions', 'Positions', 'positions')">
+    <ion-item [ngClass]="{'changed': player.getPositionString() != originalPlayer.getPositionString()}" (click)="showCheckbox('positions', 'Positions', 'positions')">
       <ion-label>Positions</ion-label>
       <p item-right>{{player?.getPositionString()}}</p>
     </ion-item>
-    <ion-item (click)="showRadio('Bats', 'bats', 'bats')">
+    <ion-item [ngClass]="{'changed': player.bats != originalPlayer.bats}" (click)="showRadio('Bats', 'bats', 'bats')">
       <ion-label>Bats</ion-label>
       <p item-right>{{player?.bats}}</p>
     </ion-item>
-    <ion-item (click)="showRadio('Throws', 'throws', 'throws')">
+    <ion-item [ngClass]="{'changed': player.throws != originalPlayer.throws}" (click)="showRadio('Throws', 'throws', 'throws')">
       <ion-label>Throws</ion-label>
       <p item-right>{{player?.throws}}</p>
     </ion-item>
   </ion-list>
-  <ion-list *ngIf="!editing">
+  <ion-list *ngIf="!editing && !updating">
     <ion-item>
       <ion-label>Phone</ion-label>
       <p item-right>{{player?.phone}}</p>
@@ -72,15 +72,15 @@
       <p item-right>{{player?.throws}}</p>
     </ion-item>
   </ion-list>
-  <ion-grid *ngIf="!editing">
+  <ion-grid *ngIf="!editing && !updating">
     <ion-row>
       <ion-col col-12><button ion-button block color="bs-primary" (click)="edit(player)">Edit</button></ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="editing">
+  <ion-grid *ngIf="editing || updating">
     <ion-row>
-      <ion-col col-6><button ion-button block color="bs-danger">Cancel</button></ion-col>
-      <ion-col col-6><button ion-button block color="bs-primary">Save</button></ion-col>
+      <ion-col col-6><button ion-button block color="bs-danger" (click)="cancelEdit()">Cancel</button></ion-col>
+      <ion-col col-6><button ion-button block color="bs-primary" (click)="save()"><span *ngIf="editing">Save</span><span *ngIf="updating">Update</span></button></ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

@@ -11,6 +11,14 @@ $font-path: "../assets/fonts";
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+// Main Colors
+$primary : #387EF5;
+$secondary: #32DB64;
+$danger: #f53d3d;
+$light: #f4f4f4;
+$dark: #222;
+
 // Bootstrap colors 
 $bs-primary: #337ab7;
 $bs-success: #5cb85c;
@@ -29,11 +37,11 @@ $bs-danger: #d9534f;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #387ef5,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
+  primary:    $primary,
+  secondary:  $secondary,
+  danger:     $danger,
+  light:      $light,
+  dark:       $dark,
   bs-primary: $bs-primary,
   bs-success: $bs-success,
   bs-info:    $bs-info,

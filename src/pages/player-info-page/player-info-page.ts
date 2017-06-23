@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
+
+import { PlayerProvider } from '../../providers/player-provider';
 
 import { Player } from '../../models/player';
 
@@ -10,13 +14,22 @@ import { Player } from '../../models/player';
 })
 export class PlayerInfoPage {
   player: Player;
+  originalPlayer: Player;
   newPlayer: boolean;
   editing: boolean;
+  updating: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,
+              public playerProvider: PlayerProvider,
+              public navParams: NavParams,
+              public alertCtrl: AlertController,
+              public imagePicker: ImagePicker,
+              public camera: Camera) {
     this.player = navParams.get('player');
+    this.originalPlayer = new Player(this.player.id, this.player.firstName, this.player.lastName, this.player.phone, this.player.email, this.player.number, this.player.positions, this.player.bats, this.player.throws);
     this.newPlayer = navParams.get('newPlayer');
     this.editing = false;
+    this.updating= false;
 
     if (this.newPlayer) {
       this.editing = true;
@@ -28,15 +41,74 @@ export class PlayerInfoPage {
     console.log('ionViewDidLoad PlayerInfoPage');
   }
 
+  cancelEdit() {
+    if (this.editing) {
+      this.navCtrl.pop();
+    } else if (this.updating) {
+      this.player = this.originalPlayer;
+      this.updating = false;
+    }
+  }
+
   /**
    * @param  {Player} player - The player to be edited
    */
   edit(player: Player) {
-    this.editing = true;
+    this.updating = true;
   }
 
   editPicture() {
-    alert("Editing Picture is currently under construction");
+    let prompt = this.alertCtrl.create({
+      title: 'Choose',
+      message: "Do you want to take a new picture or choose from your gallary?",
+      buttons: [
+        {
+          text: 'Choose',
+          handler: data => {
+            alert('Choose clicked');
+            let options = {
+              maximumImagesCount: 1
+            }
+            this.imagePicker.getPictures(options).then((results) => {
+              for (var i = 0; i < results.length; i++) {
+                  console.log('Image URI: ' + results[i]);
+              }
+            }, (err) => { });
+          }
+        },
+        {
+          text: 'Camera',
+          handler: data => {
+            alert('Camera clicked');
+            let cameraOptions: CameraOptions = {
+              quality: 100,
+              destinationType: this.camera.DestinationType.DATA_URL,
+              encodingType: this.camera.EncodingType.PNG,
+              mediaType: this.camera.MediaType.PICTURE
+            }
+            this.camera.getPicture(cameraOptions).then((imageData) => {
+               // imageData is either a base64 encoded string or a file URI
+               // If it's base64:
+               let base64Image = 'data:image/jpeg;base64,' + imageData;
+            }, (err) => {
+               // Handle error
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  save() {
+    if (this.editing) {
+      this.editing = false;
+      this.playerProvider.addPlayer(this.player);
+    } else if(this.updating) {
+      this.updating = false;
+      this.playerProvider.updatePlayer(this.player);
+    }
+    this.navCtrl.pop();
   }
 
   showNewPlayerAlert() {
@@ -50,7 +122,7 @@ export class PlayerInfoPage {
 
   showCheckbox(optionsKey: string, propertyTitle: string, property: string) {
     let optionsObj = {
-      "positions": ["P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF"]
+      "positions": ["DH", "P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF"]
     };
     let optionsArr = optionsObj[optionsKey];
 
